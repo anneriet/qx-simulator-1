@@ -741,7 +741,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] hadamard(q=" << qubit << ")");
+            QX_PRINTLN("  [-] hadamard(q=" << qubit << ")");
          }
 
    };
@@ -985,7 +985,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] cnot(ctrl_qubit=" << control_qubit << ", target_qubit=" << target_qubit << ")");
+            QX_PRINTLN("  [-] cnot(ctrl_qubit=" << control_qubit << ", target_qubit=" << target_qubit << ")");
          }
 
 	   private:
@@ -1164,7 +1164,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] toffoli(ctrl_qubit_1=" << control_qubit_1 << ", ctrl_qubit_2=" << control_qubit_2 << ", target_qubit=" << target_qubit << ")");
+            QX_PRINTLN("  [-] toffoli(ctrl_qubit_1=" << control_qubit_1 << ", ctrl_qubit_2=" << control_qubit_2 << ", target_qubit=" << target_qubit << ")");
          }
 
    };
@@ -1260,7 +1260,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] identity(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] identity(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1357,7 +1357,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] pauli-x(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] pauli-x(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1431,7 +1431,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] pauli-y(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] pauli-y(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1506,7 +1506,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] pauli-z(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] pauli-z(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1576,7 +1576,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] phase(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] phase(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1631,7 +1631,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] s_dag_gate(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] s_dag_gate(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1687,7 +1687,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
 	   void dump()
 	   {
-		 println("  [-] t_gate(qubit=" << qubit << ")");
+		 QX_PRINTLN("  [-] t_gate(qubit=" << qubit << ")");
 	   }
 	   
 	   std::vector<uint64_t>  qubits()
@@ -1744,7 +1744,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] t_dag_gate(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] t_dag_gate(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1843,7 +1843,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] unitary(qubit=" << qubit << ", angle=" << angle << ")");
+            QX_PRINTLN("  [-] unitary(qubit=" << qubit << ", angle=" << angle << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1904,7 +1904,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] rx(qubit=" << qubit << ", angle=" << angle << ")");
+            QX_PRINTLN("  [-] rx(qubit=" << qubit << ", angle=" << angle << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -1966,7 +1966,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] ry(qubit=" << qubit << ", angle=" << angle << ")");
+            QX_PRINTLN("  [-] ry(qubit=" << qubit << ", angle=" << angle << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -2028,7 +2028,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] rz(qubit=" << qubit << ", angle=" << angle << ")");
+            QX_PRINTLN("  [-] rz(qubit=" << qubit << ", angle=" << angle << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -2256,7 +2256,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
          size_t offset = __bit_set(0,bit1);
          for (size_t i=b; i<e; i++)
          {
-            println("i=" << i*step);
+            QX_PRINTLN("i=" << i * step);
             __shift(amp,bit1,bit2,p,offset+(i*step));
          }
       }
@@ -2346,10 +2346,10 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            print("  [-] qft(");
+            QX_PRINT("  [-] qft(");
             for (size_t i=0; i<(qubit.size()-1); ++i)
-               print("q" << qubit[i] << ","); 
-            println("q" << qubit[qubit.size()-1] << ")");
+               QX_PRINT("q" << qubit[i] << ",");
+            QX_PRINTLN("q" << qubit[qubit.size() - 1] << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -2512,7 +2512,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] ctrl_phase_shift(ctrl_qubit=" << ctrl_qubit << ", target_qubit: " << target_qubit << ", phase = (" << z.re << ", i." << z.im << ") )");
+            QX_PRINTLN("  [-] ctrl_phase_shift(ctrl_qubit=" << ctrl_qubit << ", target_qubit: " << target_qubit << ", phase = (" << z.re << ", i." << z.im << ") )");
          }
 
          std::vector<uint64_t>  qubits()
@@ -2580,7 +2580,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void    dump()
          {
-            println("  [-] swap(q1=" << qubit1 << ", q2=" << qubit2 << ")");
+            QX_PRINTLN("  [-] swap(q1=" << qubit1 << ", q2=" << qubit2 << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -2639,7 +2639,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] cphase(ctrl_qubit=" << ctrl_qubit << ", target_qubit=" << target_qubit << ")");
+            QX_PRINTLN("  [-] cphase(ctrl_qubit=" << ctrl_qubit << ", target_qubit=" << target_qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -2732,7 +2732,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
           */
          void    dump()
          {
-            println("  [-] custom matrix on qubit " << qubit);
+            QX_PRINTLN("  [-] custom matrix on qubit " << qubit);
             // println("  [-] custom(qubits=" << qubits << ", matrix=" << m << ")");
          }
 
@@ -3115,9 +3115,9 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
          void dump()
          {
             if (measure_all)
-               println("  [-] measure(register)");
+               QX_PRINTLN("  [-] measure(register)");
             else
-               println("  [-] measure(qubit=" << qubit << ")");
+               QX_PRINTLN("  [-] measure(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3201,9 +3201,9 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
          void dump()
          {
             if (measure_all)
-               println("  [-] measure_x(register)");
+               QX_PRINTLN("  [-] measure_x(register)");
             else
-               println("  [-] measure_x(qubit=" << qubit << ")");
+               QX_PRINTLN("  [-] measure_x(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3299,9 +3299,9 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
          void dump()
          {
             if (measure_all)
-               println("  [-] measure_y(register)");
+               QX_PRINTLN("  [-] measure_y(register)");
             else
-               println("  [-] measure_y(qubit=" << qubit << ")");
+               QX_PRINTLN("  [-] measure_y(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3389,7 +3389,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            print("  [-] bin_ctrl: \n bit=" << bits[0] << " -> ");
+            QX_PRINT("  [-] bin_ctrl: \n bit=" << bits[0] << " -> ");
             g->dump();
          }
 
@@ -3450,7 +3450,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
          void dump()
          {
             // println("  [-] classical not gate: \n bit=" << bit);
-            println("  [-] not " << bit);
+            QX_PRINTLN("  [-] not " << bit);
          }
 
          std::vector<uint64_t>  qubits()
@@ -3501,7 +3501,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] prepz(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] prepz(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3557,7 +3557,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] prepx(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] prepx(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3613,7 +3613,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] prepy(qubit=" << qubit << ")");
+            QX_PRINTLN("  [-] prepy(qubit=" << qubit << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3758,7 +3758,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] lookup gate table : ");
+            QX_PRINTLN("  [-] lookup gate table : ");
          }
 
          gate_type_t type()
@@ -3793,7 +3793,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] display(only_binary=" << only_binary << ")");
+            QX_PRINTLN("  [-] display(only_binary=" << only_binary << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -3892,7 +3892,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] parallel_gates (" << gates.size() << " gates) : ");
+            QX_PRINTLN("  [-] parallel_gates (" << gates.size() << " gates) : ");
             for (uint64_t i=0; i<gates.size(); i++)
                gates[i]->dump();
          }
@@ -3944,10 +3944,10 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
             if (std::fabs(norm-1) > QUBIT_ERROR_THRESHOLD)
             {
-               println("[!] warning : the loaded quantum state is not normalized (norm = " << norm << ") !");
-               println("[!] renormalizing the quantum state...");
+               QX_PRINTLN("[!] warning : the loaded quantum state is not normalized (norm = " << norm << ") !");
+               QX_PRINTLN("[!] renormalizing the quantum state...");
                qreg.normalize();
-               println("[!] quantum state renormalized successfully.");
+               QX_PRINTLN("[!] quantum state renormalized successfully.");
             }
 
             for (size_t qi=0; qi<qreg.size(); ++qi)
@@ -3960,7 +3960,7 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          void dump()
          {
-            println("  [-] prepare (quantum_state=" << state << ")");
+            QX_PRINTLN("  [-] prepare (quantum_state=" << state << ")");
          }
 
          std::vector<uint64_t>  qubits()
@@ -4007,13 +4007,13 @@ pr[bc] = (pv[c1]*(m.get(bc,c1))) + (pv[c2]*(m.get(bc,c2)));
 
          int64_t apply(qu_register& qreg)
          {
-            println(str);
+            QX_PRINTLN(str);
             return 0;
          }
 
          void dump()
          {
-            println(" print " << str << "\"");
+            QX_PRINTLN(" print " << str << "\"");
          }
 
          std::vector<uint64_t>  qubits()

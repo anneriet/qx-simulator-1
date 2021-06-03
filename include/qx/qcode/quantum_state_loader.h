@@ -54,7 +54,7 @@ namespace qx
 	   // open file
 	 line_index   = 0;
 	 syntax_error = false;
-	 println("[-] loading quantum_state file '" << file_name << "'...");
+	 QX_PRINTLN("[-] loading quantum_state file '" << file_name << "'...");
 	 std::ifstream stream(file_name.c_str());
 	 if (stream)
 	 {
@@ -73,7 +73,7 @@ namespace qx
 	    {
 	       exit(-1);
 	    }
-	    println("[+] code loaded successfully. ");
+	    QX_PRINTLN("[+] code loaded successfully. ");
 	    return 0;
 	 }
 	 else 
@@ -120,7 +120,7 @@ namespace qx
 	   strings words = word_list(line, " ");
 	   if (words.size() != 3)
 	   {
-	      println("[x] error : malformed quantum state file !");
+	      QX_PRINTLN("[x] error : malformed quantum state file !");
 	      syntax_error = true;
 	      return 1;
 	   }

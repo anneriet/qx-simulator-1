@@ -18,17 +18,17 @@
 #include "qx/version.h"
 
 void print_banner() {
-   println("");
-   println("  =================================================================================================== "); 
-   println("        _______                                                                                       ");
-   println("       /  ___   \\   _  __      ____   ____   __  ___  __  __   __    ___  ______  ____    ___         ");
-   println("      /  /   /  |  | |/_/     / __/  /  _/  /  |/  / / / / /  / /   / _ |/_  __/ / __ \\  / _ \\        ");
-   println("     /  /___/  /  _>  <      _\\ \\   _/ /   / /|_/ / / /_/ /  / /__ / __ | / /   / /_/ / / , _/        ");
-   println("     \\______/\\__\\ /_/|_|    /___/  /___/  /_/  /_/  \\____/  /____//_/ |_|/_/    \\____/ /_/|_|         ");
-   println("                                                                                                      ");
-   println("     version " << QX_VERSION << " - QuTech - " << QX_RELEASE_YEAR << " - report bugs and suggestions to: nader.khammassi@gmail.com");
-   println("  =================================================================================================== ");
-   println("");
+   QX_PRINTLN("");
+   QX_PRINTLN("  =================================================================================================== ");
+   QX_PRINTLN("        _______                                                                                       ");
+   QX_PRINTLN("       /  ___   \\   _  __      ____   ____   __  ___  __  __   __    ___  ______  ____    ___         ");
+   QX_PRINTLN("      /  /   /  |  | |/_/     / __/  /  _/  /  |/  / / / / /  / /   / _ |/_  __/ / __ \\  / _ \\        ");
+   QX_PRINTLN("     /  /___/  /  _>  <      _\\ \\   _/ /   / /|_/ / / /_/ /  / /__ / __ | / /   / /_/ / / , _/        ");
+   QX_PRINTLN("     \\______/\\__\\ /_/|_|    /___/  /___/  /_/  /_/  \\____/  /____//_/ |_|/_/    \\____/ /_/|_|         ");
+   QX_PRINTLN("                                                                                                      ");
+   QX_PRINTLN("     version " << QX_VERSION << " - QuTech - " << QX_RELEASE_YEAR << " - report bugs and suggestions to: nader.khammassi@gmail.com");
+   QX_PRINTLN("  =================================================================================================== ");
+   QX_PRINTLN("");
 }
 
 /**
@@ -43,8 +43,8 @@ int main(int argc, char **argv)
 
    if (!(argc == 2 || argc == 3 || argc == 4))
    {
-      println("error : you must specify a circuit file !");
-      println("usage: \n   " << argv[0] << " file.qc [iterations] [num_cpu]");
+      QX_PRINTLN("error : you must specify a circuit file !");
+      QX_PRINTLN("usage: \n   " << argv[0] << " file.qc [iterations] [num_cpu]");
       return -1;
    }
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
    //else xpu::init();
 
    // parse file and create abstract syntax tree
-   println("[+] loading circuit from '" << file_path << "' ...");
+   QX_PRINTLN("[+] loading circuit from '" << file_path << "' ...");
    FILE * qasm_file = fopen(file_path.c_str(), "r");
    if (!qasm_file)
    {
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
    qx::error_model_t          error_model       = qx::__unknown_error_model__;
 
    // create the quantum state
-   println("[+] creating quantum register of " << qubits << " qubits... ");
+   QX_PRINTLN("[+] creating quantum register of " << qubits << " qubits... ");
    try {
       reg = new qx::qu_register(qubits);
    } catch(std::bad_alloc& exception) {
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
       }
    }
 
-   println("[i] loaded " << perfect_circuits.size() << " circuits.");
+   QX_PRINTLN("[i] loaded " << perfect_circuits.size() << " circuits.");
 
    // check whether an error model is specified
    if (ast.getErrorModelType() == "depolarizing_channel")
@@ -176,7 +176,7 @@ int main(int argc, char **argv)
 #ifdef USE_GPERFTOOLS
       ProfilerStop();
 #endif
-      println("[+] average measurement after " << navg << " shots:");
+      QX_PRINTLN("[+] average measurement after " << navg << " shots:");
       reg->dump(true);
    }
    else

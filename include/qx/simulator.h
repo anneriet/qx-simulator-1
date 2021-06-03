@@ -29,7 +29,7 @@
  * i/o helpers
  */
 
-#define println(x) std::cout <<"[QXELERATOR]" << __FILE__ << ":" << __LINE__ << " " << x << std::endl
+#define QX_PRINTLN(x) std::cout <<"[QXELERATOR]" << __FILE__ << ":" << __LINE__ << " " << x << std::endl
 #define error(x) std::cerr <<"[QXELERATOR]" << __FILE__ << ":" << __LINE__ << " Error:" << x << std::endl
 
 namespace qx
@@ -88,7 +88,7 @@ public:
         qx::error_model_t          error_model       = qx::__unknown_error_model__;
 
         // create the quantum state
-        println("Creating quantum register of " << qubits << " qubits... ");
+        QX_PRINTLN("Creating quantum register of " << qubits << " qubits... ");
         try
         {
             reg = new qx::qu_register(qubits);
@@ -119,7 +119,7 @@ public:
             }
         }
 
-        println("Loaded " << perfect_circuits.size() << " circuits.");
+        QX_PRINTLN("Loaded " << perfect_circuits.size() << " circuits.");
 
         // check whether an error model is specified
         if (ast.getErrorModelType() == "depolarizing_channel")
@@ -167,7 +167,7 @@ public:
                 }
             }
 
-            println("Average measurement after " << navg << " shots:");
+            QX_PRINTLN("Average measurement after " << navg << " shots:");
             reg->dump(true);
         }
         else

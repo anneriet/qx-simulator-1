@@ -30,8 +30,8 @@
 #include "qx/xpu/vector.h"
 #include "qx/xpu/complex.h"
 
-#define println(x) std::cout << x << std::endl
-#define print(x) std::cout << x 
+#define QX_PRINTLN(x) std::cout << x << std::endl
+#define QX_PRINT(x) std::cout << x
 
 #define MAX_QB_N 64
 
@@ -378,15 +378,15 @@ namespace qx
 	 {
 	    for (uint32_t i=0; i<m.size1(); ++i)
 	    {
-		  println("");
+		  QX_PRINTLN("");
 		  for (uint32_t j=0; j<m.size1(); ++j)
 		  {
-			if (complex_format) print(m(i,j) << "  ");
-			else print(m(i,j).re << "  ");
+			if (complex_format) QX_PRINT(m(i, j) << "  ");
+			else QX_PRINT(m(i, j).re << "  ");
 			//else print(m(i,j).real() << "  ");
 		  }
 	    }
-	    println("");
+	    QX_PRINTLN("");
 	 }
 
    }

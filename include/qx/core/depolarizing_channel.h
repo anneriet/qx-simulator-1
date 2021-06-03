@@ -153,12 +153,12 @@ namespace qx
         {
            if (errors.empty())
               return;
-           println("[x] injected errors report : ");
+           QX_PRINTLN("[x] injected errors report : ");
            for (size_t i=0; i<errors.size(); ++i)
            {
-              println("     " << error_location[i] << " : "<< error_type[errors[i].first] << " on qubit " << errors[i].second);
+              QX_PRINTLN("     " << error_location[i] << " : " << error_type[errors[i].first] << " on qubit " << errors[i].second);
            }
-           println("[+] stats : " << x_errors << " x | " << z_errors << " z | " << y_errors << " y ");
+           QX_PRINTLN("[+] stats : " << x_errors << " x | " << z_errors << " z | " << y_errors << " y ");
         }
 
 #define __verbose__ if (verbose)
@@ -175,7 +175,7 @@ namespace qx
            y_errors = 0;
 
 
-           __verbose__ println("    [e] depolarizing_channel : injecting errors in circuit '" << c->id() << "'...");
+           __verbose__ QX_PRINTLN("    [e] depolarizing_channel : injecting errors in circuit '" << c->id() << "'...");
            size_t steps = c->size();
            qx::circuit * noisy_c = new qx::circuit(nq,c->id() + "(noisy)");
 
@@ -183,7 +183,7 @@ namespace qx
            error_location.clear();
            total_errors = 0;
 
-           __verbose__ println("    [+] circuit steps : " << steps);
+           __verbose__ QX_PRINTLN("    [+] circuit steps : " << steps);
            for (size_t p=0; p<steps; ++p)
            {
               qx::gate_type_t gt = c->get(p)->type();
@@ -212,7 +212,7 @@ namespace qx
                  total_errors += affected_qubits;
                  error_histogram[affected_qubits]++;
 
-                 __verbose__ println("    [>>>] error injection step " << p << " : number of affected qubits: " << affected_qubits);
+                 __verbose__ QX_PRINTLN("    [>>>] error injection step " << p << " : number of affected qubits: " << affected_qubits);
                  if (error_recording)
                  {
                     for (size_t e=0; e<affected_qubits; ++e)
@@ -226,13 +226,13 @@ namespace qx
 
                     if (is_measurement(c->get(p),q))
                     {
-                       __verbose__  print("      |--> error on qubit " << q << " (potential measurement error) ");
+                       __verbose__  QX_PRINT("      |--> error on qubit " << q << " (potential measurement error) ");
                        noisy_c->add(measurement_error(q,verbose));
                        noisy_c->add(c->get(p));
                     }
                     else
                     {
-                       __verbose__  print("      |--> error on qubit  " << q);
+                       __verbose__  QX_PRINT("      |--> error on qubit  " << q);
                        noisy_c->add(c->get(p));
                        noisy_c->add(single_qubit_error(q,verbose));
                     }
@@ -256,7 +256,7 @@ namespace qx
 
                        if (is_measurement(c->get(p),q))
                           measurement = true;
-                       __verbose__  print("      |--> error on qubit  " << q << (measurement ? "(potential measurement error)" : ""));
+                       __verbose__  QX_PRINT("      |--> error on qubit  " << q << (measurement ? "(potential measurement error)" : ""));
                        g->add(single_qubit_error(q,verbose));
                     }
 
@@ -278,7 +278,7 @@ namespace qx
                  noisy_c->add(c->get(p));
               }
            }
-           __verbose__ println("    [+] total injected errors in circuit '" <<  c->id() << "': " << total_errors);
+           __verbose__ QX_PRINTLN("    [+] total injected errors in circuit '" << c->id() << "': " << total_errors);
 
            return noisy_c;
         }
@@ -307,17 +307,17 @@ namespace qx
          */
         void dump()
         {
-           println("   [+] depolarizing channel :");
-           println("   [-] single qubit error probability : " << pe);
+           QX_PRINTLN("   [+] depolarizing channel :");
+           QX_PRINTLN("   [-] single qubit error probability : " << pe);
            for (size_t i=1; i<(nq+1); ++i)
            {
               double pp = error_probability(nq,i,pe);
-              println("   [i] simultaneous error(s) probability of " << i << " qubits out of " << nq << " : " << pp);
+              QX_PRINTLN("   [i] simultaneous error(s) probability of " << i << " qubits out of " << nq << " : " << pp);
            }
-           println("   [-] overall probability of errors: " << overall_error_probability);
-           println("   [-] probability of (x) errors: " << xp);
-           println("   [-] probability of (z) errors: " << yp);
-           println("   [-] probability of (y) errors: " << zp);
+           QX_PRINTLN("   [-] overall probability of errors: " << overall_error_probability);
+           QX_PRINTLN("   [-] probability of (x) errors: " << xp);
+           QX_PRINTLN("   [-] probability of (z) errors: " << yp);
+           QX_PRINTLN("   [-] probability of (y) errors: " << zp);
         }
 
       private:
@@ -349,7 +349,7 @@ namespace qx
            double p = uniform_rand();
            if (p<xp)
            {
-              __verbose__ println(" (x error) ");
+              __verbose__ QX_PRINTLN(" (x error) ");
               if (error_recording)
                  errors.push_back(error_t(__x_error__,q));
               x_errors++;
@@ -357,7 +357,7 @@ namespace qx
            }
            else if (p<(zp+xp))
            {
-              __verbose__ println(" (z error) ");
+              __verbose__ QX_PRINTLN(" (z error) ");
               if (error_recording)
                  errors.push_back(error_t(__z_error__,q));
               z_errors++;
@@ -365,7 +365,7 @@ namespace qx
            }
            else
            {
-              __verbose__ println(" (y error) ");
+              __verbose__ QX_PRINTLN(" (y error) ");
               if (error_recording)
                  errors.push_back(error_t(__y_error__,q));
               y_errors++;
@@ -378,7 +378,7 @@ namespace qx
          */
         qx::gate * measurement_error(size_t q, bool verbose=false)
         {
-           __verbose__ println(" (measurement error) ");
+           __verbose__ QX_PRINTLN(" (measurement error) ");
            if (error_recording)
               errors.push_back(error_t(__x_error__,q));
            return new qx::pauli_x(q);

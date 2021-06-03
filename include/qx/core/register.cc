@@ -212,7 +212,7 @@ inline bool qx::qu_register::check()
    for (int64_t i=0; i<(int64_t)data.size(); ++i)
       sum += data[i].norm();
       // sum += std::norm(data[i]);
-   println("[+] register validity check : " << sum) ;
+   QX_PRINTLN("[+] register validity check : " << sum) ;
    return (std::fabs(sum-1) < QUBIT_ERROR_THRESHOLD);
 }
 
@@ -253,7 +253,7 @@ inline void qx::qu_register::dump(bool only_binary=false)
 {
     if (!only_binary)
     {
-        println("--------------[quantum state]-------------- ");
+        QX_PRINTLN("--------------[quantum state]-------------- ");
         std::streamsize stream_size = std::cout.precision();
         // std::cout.precision(std::numeric_limits<double>::digits10);
         std::cout.precision(7); //std::numeric_limits<double>::digits10);
@@ -263,10 +263,10 @@ inline void qx::qu_register::dump(bool only_binary=false)
             if ((std::abs(data[i].re) > __amp_epsilon__) ||
                 (std::abs(data[i].im) > __amp_epsilon__))
             {
-                print("  [p = " << std::showpos << data[i].norm() << "]");
-                print("  " << std::showpos << data[i] << " |");
+                QX_PRINT("  [p = " << std::showpos << data[i].norm() << "]");
+                QX_PRINT("  " << std::showpos << data[i] << " |");
                 to_binary(i,n_qubits);
-                println("> +");
+                QX_PRINTLN("> +");
             }
         }
         std::cout.precision(stream_size);
@@ -274,31 +274,31 @@ inline void qx::qu_register::dump(bool only_binary=false)
     if (measurement_averaging_enabled)
     {
         std::setprecision(9);
-        println("------------------------------------------- ");
-        print("[>>] measurement averaging (ground state) :");
-        print(" ");
+        QX_PRINTLN("------------------------------------------- ");
+        QX_PRINT("[>>] measurement averaging (ground state) :");
+        QX_PRINT(" ");
         for (int i=measurement_averaging.size()-1; i>=0; --i)
         {
             double gs = measurement_averaging[i].ground_states;
             double es = measurement_averaging[i].exited_states;
             double av = ((es+gs) != 0. ? (gs/(es+gs)) : 0.);
-            print(" | " << std::setw(9) << av);  
+            QX_PRINT(" | " << std::setw(9) << av);
         }
-        println(" |");
+        QX_PRINTLN(" |");
     }
-    println("------------------------------------------- ");
-    print("[>>] measurement prediction               :");
-    print(" ");
+    QX_PRINTLN("------------------------------------------- ");
+    QX_PRINT("[>>] measurement prediction               :");
+    QX_PRINT(" ");
     for (int i=measurement_prediction.size()-1; i>=0; --i)
-        print(" | " <<  std::setw(9) << __format_bin(measurement_prediction[i]));  
-    println(" |");
-    println("------------------------------------------- ");
-    print("[>>] measurement register                 :");
-    print(" ");
+        QX_PRINT(" | " << std::setw(9) << __format_bin(measurement_prediction[i]));
+    QX_PRINTLN(" |");
+    QX_PRINTLN("------------------------------------------- ");
+    QX_PRINT("[>>] measurement register                 :");
+    QX_PRINT(" ");
     for (int i=measurement_register.size()-1; i>=0; --i)
-        print(" | " <<  std::setw(9) << (measurement_register[i] ? '1' : '0'));  
-    println(" |");
-    println("------------------------------------------- ");
+        QX_PRINT(" | " << std::setw(9) << (measurement_register[i] ? '1' : '0'));
+    QX_PRINTLN(" |");
+    QX_PRINTLN("------------------------------------------- ");
 }
 
 /**
@@ -424,7 +424,7 @@ inline double fidelity(qu_register& s1, qu_register& s2)
 {
    if (s1.size() != s2.size())
    {
-      println("[x] error : the specified registers have different sizes !");
+      QX_PRINTLN("[x] error : the specified registers have different sizes !");
       return -1;
    }
 

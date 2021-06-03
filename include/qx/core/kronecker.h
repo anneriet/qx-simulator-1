@@ -425,11 +425,11 @@ namespace qx
 
       inline void printv(cvector_t& v)
       {
-	 print("[ ");
+	 QX_PRINT("[ ");
 	 for (std::size_t i=0; i<v.size(); ++i)
-	    print(v[i].re << ", ");
+	    QX_PRINT(v[i].re << ", ");
 	    //print(v[i].real() << ", ");
-	 println(" ]");
+	 QX_PRINTLN(" ]");
 
       }
 

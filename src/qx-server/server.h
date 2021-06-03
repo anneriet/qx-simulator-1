@@ -81,9 +81,9 @@ namespace qx
       {
          char buf[__buf_size];
          xpu::tcp_server_socket server(port);
-         println("[+] server listening on port " << port << "...");
+         QX_PRINTLN("[+] server listening on port " << port << "...");
          sock = server.accept();
-         println("[+] client connected : " << sock->get_foreign_address() << ":" << sock->get_foreign_port() << std::endl);
+         QX_PRINTLN("[+] client connected : " << sock->get_foreign_address() << ":" << sock->get_foreign_port() << std::endl);
          //sock->send("welcom to server !", 19);
          bool stop=false;
          while (!stop)
@@ -99,8 +99,8 @@ namespace qx
             {
                //sock->send("[+] stopping server...\n", 23);
                sock->send("OK\n", 3);
-               println("[+] stopping server...");
-               println("[+] done.");
+               QX_PRINTLN("[+] stopping server...");
+               QX_PRINTLN("[+] done.");
                return;
             }
             else if (words[0] == "circuits")
@@ -117,14 +117,14 @@ namespace qx
             }
             else if (words[0] == "reset")
             {
-               println("[+] removing quantum register...");
+               QX_PRINTLN("[+] removing quantum register...");
                qubits_count=0;
                if (reg) delete reg;
-               println("[+] deleting circuits...");
+               QX_PRINTLN("[+] deleting circuits...");
                for (int i=0; i<circuits.size(); ++i)
                   delete circuits[i];
                circuits.clear();
-               println("[+] reset done.");
+               QX_PRINTLN("[+] reset done.");
                sock->send("OK\n", 3);
                continue;
             }
@@ -167,7 +167,7 @@ namespace qx
                   double gs = r.measurement_averaging[q].ground_states;
                   double es = r.measurement_averaging[q].exited_states;
                   double avg = ((es+gs) != 0. ? (gs/(es+gs)) : 0.);
-                  println("[+] measurement averaging of qubit " << q << " : " << avg);
+                  QX_PRINTLN("[+] measurement averaging of qubit " << q << " : " << avg);
                   std::stringstream ss;
                   ss << std::fixed << std::setw(7) << avg;
                   ss << '\n';
@@ -192,7 +192,7 @@ namespace qx
                else
                {
                   qx::circuit * c = 0;
-                  println("[+] trying to execute '" << words[1] << "'");
+                  QX_PRINTLN("[+] trying to execute '" << words[1] << "'");
                   for (int i=0; i<circuits.size(); ++i)
                   {
                      if (words[1] == circuits[i]->id())
@@ -207,7 +207,7 @@ namespace qx
                   }
                   else 
                   {
-                     println("[!] circuit not found !");
+                     QX_PRINTLN("[!] circuit not found !");
                      std::string error_code = "E"+int_to_str(QX_ERROR_CIRCUIT_NOT_FOUND)+"\n";
                      sock->send(error_code.c_str(), error_code.length()+1);
                   }
@@ -249,7 +249,7 @@ namespace qx
                      else
                      {
                         double error_probability = atof(words[3].c_str());
-                        println("[+] executing '" << words[1] << "' (" << iterations << " iterations) under depolarizing noise...");
+                        QX_PRINTLN("[+] executing '" << words[1] << "' (" << iterations << " iterations) under depolarizing noise...");
                         qx::qu_register& r = *reg;
                         qx::depolarizing_channel dch(c, r.size(), error_probability);
                         while (iterations--)
@@ -258,13 +258,13 @@ namespace qx
                            qx::circuit * nc = dch.inject(false);
                            nc->execute(r);
                         }
-                        println("[+] done.");
+                        QX_PRINTLN("[+] done.");
                         sock->send("OK\n", 3);
                      }
                   }
                   else 
                   {
-                     println("[!] circuit not found !");
+                     QX_PRINTLN("[!] circuit not found !");
                      std::string error_code = "E"+int_to_str(QX_ERROR_CIRCUIT_NOT_FOUND)+"\n";
                      sock->send(error_code.c_str(), error_code.length()+1);
                   }
@@ -823,7 +823,7 @@ namespace qx
                   delete circuits[index];
                   circuits.erase(circuits.begin()+index);
                }
-               println("[!] warning : circuit '" << name << "' reinitialized !");
+               QX_PRINTLN("[!] warning : circuit '" << name << "' reinitialized !");
                // println("label : new circuit '" << line << "' created.");
                circuits.push_back(new qx::circuit(qubits_count, line.substr(1)));
                return 0;
@@ -1225,7 +1225,7 @@ namespace qx
             {
                error_model = __depolarizing_channel__;
                error_probability = atof(params[1].c_str());
-               println(" => error model:  (name=" << params[0].c_str() << ", error_probability=" << error_probability << ")");
+               QX_PRINTLN(" => error model:  (name=" << params[0].c_str() << ", error_probability=" << error_probability << ")");
             }
             else
                print_semantic_error(" unknown error model !", QX_ERROR_INVALID_ERROR_MODEL);
@@ -1237,15 +1237,15 @@ namespace qx
          else if (words[0] == "noise")   // operational errors
          {
             strings params = word_list(words[1],",");
-            println(" => noise (theta=" << params[0].c_str() << ", phi=" << params[1].c_str() << ")");
+            QX_PRINTLN(" => noise (theta=" << params[0].c_str() << ", phi=" << params[1].c_str() << ")");
          } 
          else if (words[0] == "decoherence")   // decoherence
          {
-            println(" => decoherence (dt=" << words[1] << ")");
+            QX_PRINTLN(" => decoherence (dt=" << words[1] << ")");
          }
          else if (words[0] == "qec")   // decoherence
          {
-            println(" => quantum error correction scheme = " << words[1]);
+            QX_PRINTLN(" => quantum error correction scheme = " << words[1]);
          }
          else
             print_syntax_error(" unknown gate or command !", QX_ERROR_UNKNOWN_COMMAND);

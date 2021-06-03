@@ -112,7 +112,7 @@ namespace qx
       {
 	 line_index   = 0;
 	 syntax_error = false;
-	 println("[-] loading quantum_code file '" << file_name << "'...");
+	 QX_PRINTLN("[-] loading quantum_code file '" << file_name << "'...");
 	 std::ifstream stream(file_name.c_str());
 	 if (stream)
 	 {
@@ -133,13 +133,13 @@ namespace qx
 	          exit(-1);
 	       else
 	       {
-		  println("[+] failed to load the code : code contains errors. ");
+		  QX_PRINTLN("[+] failed to load the code : code contains errors. ");
 		  return -1;
 	       }
 
 	    }
 	    parsed_successfully = true;
-	    println("[+] code loaded successfully. ");
+	    QX_PRINTLN("[+] code loaded successfully. ");
 	    return 0;
 	 }
 	 else 
@@ -168,7 +168,7 @@ namespace qx
       {
 	 if (!parsed_successfully)
 	 {
-	    println("[!] no circuits: quantum code file not loaded yet !");
+	    QX_PRINTLN("[!] no circuits: quantum code file not loaded yet !");
 	    return;
 	 }
 	 for (size_t i=0; i<circuits.size(); ++i)
@@ -182,12 +182,12 @@ namespace qx
       {
 	 if (!parsed_successfully)
 	 {
-	    println("[x] no circuits to execute: you must load quantum code file first !");
+	    QX_PRINTLN("[x] no circuits to execute: you must load quantum code file first !");
 	    return;
 	 }
 	 if (address > circuits.size())
 	 {
-	    println("[x] invalid circuit pointer (" << address << ") , there is only " << circuits.size() << " sub-circuits !");
+	    QX_PRINTLN("[x] invalid circuit pointer (" << address << ") , there is only " << circuits.size() << " sub-circuits !");
 	    return;
 	 }
 	 for (size_t i=address; i<circuits.size(); ++i)
@@ -475,7 +475,7 @@ namespace qx
 	    {
 	       error_model = __depolarizing_channel__;
 	       error_probability = atof(params[1].c_str());
-	       println("[!] noise simulation enabled : error model =" << params[0].c_str() << ", error probability =" << error_probability << ")");
+	       QX_PRINTLN("[!] noise simulation enabled : error model =" << params[0].c_str() << ", error probability =" << error_probability << ")");
 	    }
 	    else
 	       print_semantic_error(" unknown error model !");
@@ -486,15 +486,15 @@ namespace qx
 	 else if (words[0] == "noise")   // operational errors
 	 {
 	    strings params = word_list(words[1],",");
-	    println(" => noise (theta=" << params[0].c_str() << ", phi=" << params[1].c_str() << ")");
+	    QX_PRINTLN(" => noise (theta=" << params[0].c_str() << ", phi=" << params[1].c_str() << ")");
 	 } 
 	 else if (words[0] == "decoherence")   // decoherence
 	 {
-	    println(" => decoherence (dt=" << words[1] << ")");
+	    QX_PRINTLN(" => decoherence (dt=" << words[1] << ")");
 	 }
 	 else if (words[0] == "qec")   // decoherence
 	 {
-	    println(" => quantum error correction scheme = " << words[1]);
+	    QX_PRINTLN(" => quantum error correction scheme = " << words[1]);
 	 }
 	 /**
 	  * parallel gates
@@ -1081,14 +1081,14 @@ namespace qx
 	 // check validity
 	 if ((str[0] != 'q') && (str[0] != 'b'))
 	 {
-	    println("[x] syntax error: invalid qubit/bit identifier !");
+	    QX_PRINTLN("[x] syntax error: invalid qubit/bit identifier !");
 	    return "";
 	 }
 	 for (int i=1; i<(str.size()-1); i++)
 	 {
 	    if (!is_digit(str[i]))
 	    {
-	       println("[x] syntax error: invalid qubit/bit identifier !");
+	       QX_PRINTLN("[x] syntax error: invalid qubit/bit identifier !");
 	       return "";
 	    }
 	 }
