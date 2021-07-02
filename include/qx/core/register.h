@@ -206,6 +206,11 @@ namespace qx
          void dump(bool only_binary);
 
          /**
+          * \brief get_average_measurement
+          */
+         double get_average_measurement(int q);
+
+         /**
           * \brief return the quantum state as a string
           */
          std::string get_state(bool only_binary);

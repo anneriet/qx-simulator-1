@@ -70,6 +70,7 @@ public:
         }
     }
 
+    bool measurement_averaging_enabled = false;
 
     /**
      * execute qasm file
@@ -134,6 +135,7 @@ public:
         // measurement averaging
         if (navg)
         {
+            measurement_averaging_enabled = true;
             if (error_model == qx::__depolarizing_channel__)
             {
                 qx::measure m;
@@ -204,6 +206,20 @@ public:
                 circuits[i]->execute(*reg);
             }
         }
+    }
+
+    std::vector<double> get_average_measurement()
+    {        
+        if(measurement_averaging_enabled)
+        {
+            std::vector<double> result;
+            for(int i; i < ast.numQubits(); i++)
+            {
+                result.push_back(reg->get_average_measurement(i));
+            }
+            return result;
+        }
+        QX_EOUT("Average measurement not available");        
     }
 
     bool move(size_t q)

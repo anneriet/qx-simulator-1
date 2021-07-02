@@ -1,4 +1,5 @@
 #include <exception>
+#include "qx/core/logger.h"
 
 /**
  * set_binary
@@ -279,9 +280,7 @@ void qx::qu_register::dump(bool only_binary=false)
         print(" ");
         for (int i=measurement_averaging.size()-1; i>=0; --i)
         {
-            double gs = measurement_averaging[i].ground_states;
-            double es = measurement_averaging[i].exited_states;
-            double av = ((es+gs) != 0. ? (gs/(es+gs)) : 0.);
+            double av = get_average_measurement(i);
             print(" | " << std::setw(9) << av);  
         }
         println(" |");
@@ -299,6 +298,19 @@ void qx::qu_register::dump(bool only_binary=false)
         print(" | " <<  std::setw(9) << (measurement_register[i] ? '1' : '0'));  
     println(" |");
     println("------------------------------------------- ");
+}
+
+double gs;
+double es;
+
+/**
+ * \brief return the average measurement result for a specific qubit as a double
+*/
+double qx::qu_register::get_average_measurement(int q)
+{
+   gs = measurement_averaging[q].ground_states;
+   es = measurement_averaging[q].exited_states;
+   return ((es+gs) != 0. ? (gs/(es+gs)) : 0.);
 }
 
 /**
