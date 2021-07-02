@@ -27,6 +27,8 @@ public:
             std::cerr << "error creating qx::simulator " << std::endl;
             std::cerr << e.what() << std::endl;
         }
+        // By calling QXelerator we already have access to the simulation results, so log level set to errors only (qx used to always print everything to cout)
+        qx::logger::set_log_level("LOG_ERROR");
     }
     ~QX()
     {
