@@ -91,7 +91,7 @@ namespace xpu
    {
       __v4d x; 
       x.m = m;
-      println("[ " << x.d1 << ", " << x.d2 << ", " << x.d3 << ", " << x.d4 << " ]");
+    //   println("[ " << x.d1 << ", " << x.d2 << ", " << x.d3 << ", " << x.d4 << " ]");
    }
 #endif 
 

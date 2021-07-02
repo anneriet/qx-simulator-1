@@ -6,10 +6,6 @@
 #include <bitset>
 #include <cassert>
 
-#ifndef println
-#define println(x) std::cout << x << std::endl
-#define print(x) std::cout << x 
-#endif // println
 
 namespace qx {
 

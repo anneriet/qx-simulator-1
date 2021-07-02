@@ -24,13 +24,7 @@
 #include <map>
 #include <stdint.h>
 
-
-/**
- * i/o helpers
- */
-
-#define println(x) std::cout <<"[QXELERATOR]" << __FILE__ << ":" << __LINE__ << " " << x << std::endl
-#define error(x) std::cerr <<"[QXELERATOR]" << __FILE__ << ":" << __LINE__ << " Error:" << x << std::endl
+#include "qx/core/logger.h"
 
 namespace qx
 {
@@ -43,19 +37,24 @@ class simulator
 protected:
     qx::qu_register * reg;
     compiler::QasmRepresentation ast;
+    std::string file_path;
 
 public:
     simulator() : reg(nullptr) { /*xpu::init();*/ }
     ~simulator() { /*xpu::clean();*/ }
 
-    void set(std::string file_path)
+    void set(std::string fp)
+    {
+        file_path = fp;
+    }
+
+    void parse_file() // private
     {
         FILE * qasm_file = fopen(file_path.c_str(), "r");
         if (!qasm_file)
         {
-            error("Could not open " << file_path );
+            QX_EOUT("Could not open " << file_path );
         }
-
         // construct libqasm parser and safely parse input file
         compiler::QasmSemanticChecker * parser;
         try
@@ -66,8 +65,8 @@ public:
         }
         catch (std::exception &e)
         {
-            error("parsing file " << file_path);
-            error(e.what());
+            QX_EOUT("parsing file " << file_path);
+            QX_EOUT(e.what());
         }
     }
 
@@ -77,6 +76,9 @@ public:
      */
     void execute(size_t navg)
     {
+        // parsing used to be done when set(*) was called
+        // instead it is now the first thing for execute()
+        parse_file();
         // quantum state and circuits
         size_t                     qubits = ast.numQubits();
         std::vector<qx::circuit*>  circuits;
@@ -89,19 +91,19 @@ public:
         qx::error_model_t          error_model       = qx::__unknown_error_model__;
 
         // create the quantum state
-        println("Creating quantum register of " << qubits << " qubits... ");
+        QX_DOUT("Creating quantum register of " << qubits << " qubits... ");
         try
         {
             reg = new qx::qu_register(qubits);
         }
         catch(std::bad_alloc& exception)
         {
-            std::cerr << "Not enough memory, aborting" << std::endl;
+            QX_EOUT("Not enough memory, aborting");
             // xpu::clean();
         }
         catch(std::exception& exception)
         {
-            std::cerr << "Unexpected exception (" << exception.what() << "), aborting" << std::endl;
+            QX_EOUT("Unexpected exception (" << exception.what() << "), aborting");
             // xpu::clean();
         }
 
@@ -115,12 +117,12 @@ public:
             }
             catch (std::string type)
             {
-                std::cerr << "Encountered unsupported gate: " << type << std::endl;
+                QX_EOUT("Encountered unsupported gate: ");
                 // xpu::clean();
             }
         }
 
-        println("Loaded " << perfect_circuits.size() << " circuits.");
+        QX_DOUT("Loaded " << perfect_circuits.size() << " circuits.");
 
         // check whether an error model is specified
         if (ast.getErrorModelType() == "depolarizing_channel")
@@ -168,19 +170,19 @@ public:
                 }
             }
 
-            println("Average measurement after " << navg << " shots:");
+            QX_DOUT("Average measurement after " << navg << " shots:");
             reg->dump(true);
         }
         else
         {
             if (error_model == qx::__depolarizing_channel__)
             {
-                // println("[+] generating noisy circuits (p=" << qxr.getErrorProbability() << ")...");
+                // QX_DOUT("[+] generating noisy circuits (p=" << qxr.getErrorProbability() << ")...");
                 for (size_t i=0; i<perfect_circuits.size(); i++)
                 {
                     if (perfect_circuits[i]->size() == 0)
                         continue;
-                    // println("[>] processing circuit '" << perfect_circuits[i]->id() << "'...");
+                    // QX_DOUT("[>] processing circuit '" << perfect_circuits[i]->id() << "'...");
                     size_t iterations = perfect_circuits[i]->get_iterations();
                     if (iterations > 1)
                     {
@@ -192,7 +194,7 @@ public:
                         circuits.push_back(qx::noisy_dep_ch(perfect_circuits[i],error_probability,total_errors));
                     }
                 }
-                // println("[+] total errors injected in all circuits : " << total_errors);
+                // QX_DOUT("[+] total errors injected in all circuits : " << total_errors);
             }
             else
                 circuits = perfect_circuits; // qxr.circuits();

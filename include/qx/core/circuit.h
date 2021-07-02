@@ -13,9 +13,6 @@
 #include <string>
 #include <cstdint>
 
-#define println(x) std::cout << x << std::endl
-#define print(x) std::cout << x 
-
 #include "qx/core/gate.h"
 
 // #ifndef XPU_TIMER
