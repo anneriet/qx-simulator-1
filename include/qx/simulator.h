@@ -207,17 +207,26 @@ public:
             }
         }
     }
+    std::vector<double> get_average_measurement(size_t n)
+    {        
+        std::vector<double> vec;
+        for(int i; i < ast.numQubits(); i++)
+        {
+            // vec.push_back(reg->get_average_measurement(i));
+        }
+        return vec;
+        }
 
     std::vector<double> get_average_measurement()
     {        
         if(measurement_averaging_enabled)
         {
-            std::vector<double> result;
+            std::vector<double> vec;
             for(int i; i < ast.numQubits(); i++)
             {
-                result.push_back(reg->get_average_measurement(i));
+                vec.push_back(reg->get_average_measurement(i));
             }
-            return result;
+            return vec;
         }
         QX_EOUT("Average measurement not available");        
     }
@@ -230,6 +239,16 @@ public:
     std::string get_state()
     {
         return reg->get_state();
+    }
+
+    std::vector<std::complex<double>> get_state_vector()
+    {
+        std::vector<std::complex<double>>  vec;
+        for (auto &state : reg->get_data())
+        {
+            vec.push_back(std::complex<double>(state.re, state.im));
+        }
+        return vec;
     }
 };
 }

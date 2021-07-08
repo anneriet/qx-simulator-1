@@ -214,7 +214,11 @@ namespace qx
           * \brief return the quantum state as a string
           */
          std::string get_state(bool only_binary);
-
+         
+         /**
+         * \brief return the quantum state as a vector of complex doubles
+         */
+         cvector_t get_state_vector(); 
 
          std::string  to_binary_string(uint64_t state, uint64_t nq);
 

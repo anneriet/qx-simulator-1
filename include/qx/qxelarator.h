@@ -54,10 +54,30 @@ public:
     {
         return qx_sim->get_average_measurement();
     }
+
+    // Executes the circuit once and returns an average measurement result calculated using a binomial distribution
+     std::vector<double> execute_and_get_average_measurement(size_t n)
+    {
+        execute();
+        return qx_sim->get_average_measurement(n);
+    }
     
     std::string get_state()
     {
         return qx_sim->get_state();
+    }
+    
+    // std::vector<complex_t> get_state_vector()
+    // {
+    //     std::vector<xpu::complex_d, xpu::aligned_memory_allocator<xpu::complex_d, 64> > vec = qx_sim->get_state_vector();
+    //     complex_t * data = (qx_sim->get_state_vector()).data();
+    //     std::vector<complex_t> cvec(std::begin(data), std::end(data));
+    //     return vec.data();
+    // }
+    
+    std::vector<std::complex<double>> get_state_vector()
+    {
+        return qx_sim->get_state_vector();
     }
 
 };

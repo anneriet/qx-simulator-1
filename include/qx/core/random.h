@@ -83,7 +83,38 @@ namespace qx
 	 std::normal_distribution<double> distribution;
    };
 
-}
+	/**
+    * \brief binomial random number generator
+    */
+   class binomial_random_number_generator
+   {
+      public:
 
+	 /**
+	  * \brief ctor
+	  */
+	 binomial_random_number_generator(int ntrials = 10, double psuccess = 0.5) : ntrials(ntrials), psuccess(psuccess), generator(xpu::timer().current()*rd()), distribution(ntrials, psuccess)
+	 {
+	 }
+
+	 /**
+	  * \brief generate random number
+	  */
+	 double next()
+	 {
+	    return distribution(generator)/ntrials;
+	 }
+
+
+
+      private:
+        int ntrials;
+		double psuccess; 
+		std::random_device               rd;
+		std::mt19937                     generator;
+		std::binomial_distribution<int> distribution;
+   };
+
+}
 #endif // QX_RANDOM_H
 

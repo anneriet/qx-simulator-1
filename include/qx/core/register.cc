@@ -334,7 +334,13 @@ std::string qx::qu_register::get_state(bool only_binary=false)
    return ss.str();
 }
 
-
+/**
+ * \brief return the quantum state as a vector of complex doubles
+ */
+qx::linalg::cvector_t qx::qu_register::get_state_vector()
+{
+   return data;     
+}
 /**
  * set_binary
  */
