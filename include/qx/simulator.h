@@ -207,15 +207,36 @@ public:
             }
         }
     }
-    std::vector<double> get_average_measurement(size_t n)
-    {        
-        std::vector<double> vec;
-        for(int i; i < ast.numQubits(); i++)
+    std::vector<double> get_average_measurement(size_t reps)
+    {   
+        std::binomial_distribution<size_t> distribution;
+        std::random_device rd;
+        std::mt19937 gen(xpu::timer().current()*rd());
+        uint64_t size = ast.numQubits(); 
+
+        std::vector<double> vec(size, 0); // to store the results
+
+        uint64_t n = (1UL << size);
+
+        uint64_t range = (n >> 1);
+        cvector_t& pstates = reg->get_data();
+        static const uint64_t SIZE = 1000;
+        if(reps > 0) // this way we avoid divide-by-zero issues and also provide a way to get the normalized state vector directly (because then the state does not get replaced by a randomized average)
+        {        
+            for (int i = 0; i < n; i++)
+            {
+                distribution = std::binomial_distribution<size_t>(reps, pstates[i].norm());
+                pstates[i] = std::sqrt((1./reps)*distribution(gen)); 
+            } 
+        }
+        for(size_t qubit = 0; qubit < size; qubit++)
         {
-            // vec.push_back(reg->get_average_measurement(i));
+            for (int64_t batch = 0; batch <= (int64_t)range / SIZE; batch++) {
+                vec[qubit] += p1_worker(batch*SIZE, std::min<uint64_t>((batch+1)*SIZE, range), qubit, &pstates);
+            }
         }
         return vec;
-        }
+    }
 
     std::vector<double> get_average_measurement()
     {        
